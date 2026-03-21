@@ -6,6 +6,15 @@ A simple QA automation project built with **C#**, **Selenium WebDriver**, and **
 
 This project automates login testing on a sample web application and covers both positive and negative login scenarios. It demonstrates a clean automation structure suitable for QA portfolio presentation.
 
+## Test Execution Result
+
+![Test Results](Screenshots/test-run-results.png)
+
+## Test Execution Result
+
+![Test Results](Screenshots/test-run-results.png)
+
+
 ## Tech Stack
 
 - C#
