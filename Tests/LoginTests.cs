@@ -2,7 +2,6 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumCSharpLoginAutomation.Pages;
 using SeleniumCSharpLoginAutomation.Utilities;
-using System.Threading;
 
 namespace SeleniumCSharpLoginAutomation.Tests
 {
@@ -22,16 +21,10 @@ namespace SeleniumCSharpLoginAutomation.Tests
         public void ValidLoginTest()
         {
             loginPage!.Open();
-            Thread.Sleep(2000);
 
             loginPage.EnterUsername("tomsmith");
-            Thread.Sleep(2000);
-
             loginPage.EnterPassword("SuperSecretPassword!");
-            Thread.Sleep(2000);
-
             loginPage.ClickLogin();
-            Thread.Sleep(5000);
 
             Assert.That(driver!.Url, Does.Contain("/secure"));
         }
@@ -40,16 +33,10 @@ namespace SeleniumCSharpLoginAutomation.Tests
         public void InvalidLoginTest()
         {
             loginPage!.Open();
-            Thread.Sleep(2000);
 
             loginPage.EnterUsername("wrong_user");
-            Thread.Sleep(2000);
-
             loginPage.EnterPassword("wrong_password");
-            Thread.Sleep(2000);
-
             loginPage.ClickLogin();
-            Thread.Sleep(5000);
 
             Assert.That(loginPage.GetFlashMessage(), Does.Contain("Your username is invalid!"));
         }
@@ -58,10 +45,8 @@ namespace SeleniumCSharpLoginAutomation.Tests
         public void EmptyLoginTest()
         {
             loginPage!.Open();
-            Thread.Sleep(2000);
 
             loginPage.ClickLogin();
-            Thread.Sleep(5000);
 
             Assert.That(loginPage.GetFlashMessage(), Does.Contain("Your username is invalid!"));
         }
@@ -71,7 +56,6 @@ namespace SeleniumCSharpLoginAutomation.Tests
         {
             if (driver != null)
             {
-                Thread.Sleep(5000);
                 driver.Quit();
                 driver.Dispose();
                 driver = null;

@@ -1,10 +1,14 @@
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
+using System;
 
 namespace SeleniumCSharpLoginAutomation.Pages
 {
     public class LoginPage
     {
         private readonly IWebDriver _driver;
+        private readonly WebDriverWait _wait;
 
         private readonly By UsernameInput = By.Id("username");
         private readonly By PasswordInput = By.Id("password");
@@ -14,6 +18,7 @@ namespace SeleniumCSharpLoginAutomation.Pages
         public LoginPage(IWebDriver driver)
         {
             _driver = driver;
+            _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
         }
 
         public void Open()
@@ -23,26 +28,28 @@ namespace SeleniumCSharpLoginAutomation.Pages
 
         public void EnterUsername(string username)
         {
-            var usernameField = _driver.FindElement(UsernameInput);
+            var usernameField = _wait.Until(ExpectedConditions.ElementIsVisible(UsernameInput));
             usernameField.Clear();
             usernameField.SendKeys(username);
         }
 
         public void EnterPassword(string password)
         {
-            var passwordField = _driver.FindElement(PasswordInput);
+            var passwordField = _wait.Until(ExpectedConditions.ElementIsVisible(PasswordInput));
             passwordField.Clear();
             passwordField.SendKeys(password);
         }
 
         public void ClickLogin()
         {
-            _driver.FindElement(LoginButton).Click();
+            var loginBtn = _wait.Until(ExpectedConditions.ElementToBeClickable(LoginButton));
+            loginBtn.Click();
         }
 
         public string GetFlashMessage()
         {
-            return _driver.FindElement(FlashMessage).Text;
+            var flash = _wait.Until(ExpectedConditions.ElementIsVisible(FlashMessage));
+            return flash.Text;
         }
     }
 }
